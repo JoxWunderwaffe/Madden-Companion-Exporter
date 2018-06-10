@@ -6,7 +6,7 @@ const app = express();
 
 // TODO: Enter the path to your service account json file
 // Need help with this step go here: https://firebase.google.com/docs/admin/setup
-const serviceAccount = require("./firebase-info.json");
+var serviceAccount = require("./firebase-info.json");
 
 // TODO: Enter your database url from firebase
 admin.initializeApp({
@@ -30,8 +30,8 @@ app.post('*', (req, res) => {
 });
 
 app.post('/:username/:platform/:leagueId/leagueteams', (req, res) => {
-  const db = admin.database();
-  const ref = db.ref();
+  var db = admin.database();
+  var ref = db.ref();
   const { params: { username, leagueId }, body: { leagueTeamInfoList: teams } } = req;
 
   teams.forEach(team => {
@@ -43,8 +43,8 @@ app.post('/:username/:platform/:leagueId/leagueteams', (req, res) => {
 });
 
 app.post('/:username/:platform/:leagueId/standings', (req, res) => {
-  const db = admin.database();
-  const ref = db.ref();
+  var db = admin.database();
+  var ref = db.ref();
   const { params: { username, leagueId }, body: { teamStandingInfoList: teams } } = req;
 
   teams.forEach(team => {
@@ -60,8 +60,8 @@ function capitalizeFirstLetter(string) {
 }
 
 app.post('/:username/:platform/:leagueId/week/:weekType/:weekNumber/:dataType', (req, res) => {
-  const db = admin.database();
-  const ref = db.ref();
+  var db = admin.database();
+  var ref = db.ref();
   const { params: { username, leagueId, weekType, weekNumber, dataType } } = req;
   const dataRef = ref.child(`data/${username}/${leagueId}/week/${weekType}/${weekNumber}/${dataType}`);
 
@@ -112,8 +112,8 @@ app.post('/:username/:platform/:leagueId/freeagents/roster', (req, res) => {
 });
 
 app.post('/:username/:platform/:leagueId/team/:teamId/roster', (req, res) => {
-  const db = admin.database();
-  const ref = db.ref();
+  var db = admin.database();
+  var ref = db.ref();
   const { params: { username, leagueId, teamId }, body: { rosterInfoList } } = req;
   const dataRef = ref.child(`data/${username}/${leagueId}/teams/${teamId}/roster`);
   const players = {};
